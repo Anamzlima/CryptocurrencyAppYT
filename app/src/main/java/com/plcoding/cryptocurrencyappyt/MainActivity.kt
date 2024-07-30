@@ -3,49 +3,40 @@ package com.plcoding.cryptocurrencyappyt
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.plcoding.cryptocurrencyappyt.presentation.Screen
+import com.plcoding.cryptocurrencyappyt.presentation.screens.coin_detail.CoinDetailScreen
+import com.plcoding.cryptocurrencyappyt.presentation.screens.coin_list.CoinListScreen
 import com.plcoding.cryptocurrencyappyt.presentation.ui.theme.CryptocurrencyAppYTTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             CryptocurrencyAppYTTheme {
                 Surface(color = MaterialTheme.colors.onSurface) {
-                    Column(
-                        modifier = Modifier
-                            .fillMaxSize(),
-                        verticalArrangement = Arrangement.Center,
-                        horizontalAlignment = Alignment.CenterHorizontally
+                    val navController = rememberNavController()
+                    NavHost(
+                        navController = navController,
+                        startDestination = Screen.CoinListScreen.route
                     ) {
-                        var click by remember { mutableStateOf(0) }
-
-                        Text(text = "test $click")
-
-                        Button(
-                            colors = ButtonDefaults.buttonColors(Color.Red),
-                            onClick = { click++ }
+                        composable(
+                            route = Screen.CoinListScreen.route
                         ) {
-                            Text(
-                                color = Color.Black,
-                                text = "Click me"
-                            )
+                            CoinListScreen(navController)
                         }
 
+                        composable(
+                            route = Screen.CoinListScreen.route + "/{coinId}"
+                        ) {
+                            CoinDetailScreen()
+                        }
                     }
                 }
             }
