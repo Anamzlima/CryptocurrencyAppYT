@@ -117,18 +117,19 @@ fun CoinDetailTitle(
     coinDetail.let { coin ->
         Column(
             modifier = Modifier
-                .padding(20.dp)
+                .padding(horizontal = 4.dp, vertical = 8.dp)
         ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceBetween,
-                modifier = Modifier
-                    .fillMaxWidth()
+                modifier = Modifier.fillMaxWidth()
             ) {
                 Text(
                     text = "${coin.rank}. " + "${coin.name} " + "(${coin.symbol})",
                     style = MaterialTheme.typography.h2,
                     modifier = Modifier.weight(8f),
+                    textAlign = TextAlign.Start
+
                 )
                 Text(
                     text = if (coin.isActive) "active" else "not active",

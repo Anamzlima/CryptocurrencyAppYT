@@ -21,7 +21,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             CryptocurrencyAppYTTheme {
-                Surface(color = MaterialTheme.colors.onSurface) {
+                Surface(color = MaterialTheme.colors.background) {
                     val navController = rememberNavController()
                     NavHost(
                         navController = navController,
